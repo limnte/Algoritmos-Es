@@ -1,0 +1,27 @@
+Lista é um tipo abstrato de dados (TAD)
+
+É um modelo matematico por meio de um par (v, o), em que V é um conjunto de valores e o é um conjunto de operações
+
+em C (typedef e struct):
+    - Listas
+    - Filas
+    - Pilhas
+    - Arvores
+    - Grafos
+
+Uma lista é uma estrutura de dados linear, ou seja, os elementos estão dispostos em sequencia, cada elemento tem um sucessor, exceto o ultimo.
+
+Uma fila(queue) é um tipo especial de lista, é uma estrutura de dados linear, em que o primeiro elemento é o primeiro a sair, ou seja, segue o principio FIFO(First in First out)
+
+Uma pilha (stack) é uma estrutura de dados linear, que segue o primeiro elemento a entrar é o ultimo a sair, ou seja, segue o principio LIFO (Last in Firs Out)
+
+Arvores é uma estrutura de dados hierarquica, composta por nós (nodes) ligados entre si op arestas (edges). Formam uma estrutura ramificada, em cada nó pode gerar outros nós - 
+chamados filhos (children)
+
+um Grafo é uma estrutura de dados não linear, composta por vertices (ou nós), os pontos representam entidades, e arestasque caracterizam as conexões entre esses vertices
+
+--------x-------
+
+Implementação utilizando ponteiros ou arrays
+esses elementos são encapsulados em structs
+

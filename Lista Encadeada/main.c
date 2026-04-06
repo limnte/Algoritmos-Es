@@ -19,6 +19,7 @@ Item * CriarItem(int Chave);
 void ExibirLista( Item * Inicio, int Tamanho);
 int Par(Item * Inicio, int Tamanho);
 Lista * CriarLista();
+void InserirItem(Lista * MinhaLista, Item * NovoItem, int Posicao);
 
 int main(){
     system("cls");
@@ -28,14 +29,13 @@ int main(){
     Item * C = CriarItem(40);
     Item * D = CriarItem(10);
     
-    //Construindo o Encadeamento;
-
-    A->Proximo = C;
-    C->Proximo = D;
-    D->Proximo = B;
-    B->Proximo = A;
+   Lista * MinhaLista = CriarLista();
 
     printf("\n---------------------------------------\n\n");
+    InserirItem(MinhaLista, A, 0);
+    InserirItem(MinhaLista, B, 1);
+    InserirItem(MinhaLista, C, 2);
+    InserirItem(MinhaLista, D, 3);
     ExibirLista(A, 4);
     Par(A,4);
 
@@ -98,4 +98,27 @@ Lista * CriarLista(){
     NovaLista->Fim = NULL;
 
     return NovaLista;
+};
+
+void InserirItem(Lista * MinhaLista, Item * NovoItem, int Posicao){
+    if(Posicao < 0 || Posicao > MinhaLista->Tamanho){
+        printf("ERRO: Posicao Invalida");
+        return;
+    }
+
+    if(Posicao == 0){
+        NovoItem->Proximo = MinhaLista -> Inicio;
+        MinhaLista->Inicio = NovoItem;
+    }else{
+        Item * Temp = MinhaLista->Inicio;
+
+        for(int i = 0; i < Posicao - 1; i++){
+            Temp = Temp->Proximo;
+        }
+
+        NovoItem->Proximo = Temp->Proximo;
+        Temp->Proximo = NovoItem;
+    }
+
+    MinhaLista->Tamanho++;
 };

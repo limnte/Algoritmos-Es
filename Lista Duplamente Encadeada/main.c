@@ -9,16 +9,30 @@ typedef struct Item{
     int Ano;
     struct Item * Proximo;
     struct Item * Anterior;
+
 } Item;
 
 typedef Item Musica;
 
-Item * criarItem (char *  Titulo, char * Autor, int Ano);
-void ExibirLista(Item * Inicio);
+typedef struct Lista{
+    int Tamanho;
+    struct Item * Inicio;
+}Lista;
 
+
+Item * criarItem (char *  Titulo, char * Autor, int Ano);
+Lista * criarLista();
+void exibirLista(Lista * L);
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
+    
+    Lista * Playlist = criarLista(); //Usando a função criarLista para alocar memoria para a variavel Playlist
+
+    if(Playlist == NULL){
+        printf("ERRO: SEM MEMORIA PARA A PLAYLIST\n");
+        exit(1);
+    }
 
     Musica * D = criarItem("Aquarela","Toquinho", 1983);
     Musica * E = criarItem("Romaria","Renato Teixeira", 1978);
@@ -26,29 +40,23 @@ int main(){
     Musica * G = criarItem("Cálice","Chico Buarque e Gilberto Gil", 1978);
     Musica * H = criarItem("Tempo Perdido","Renato Russo", 1986);
 
+    D->Anterior = NULL;
     D->Proximo = E;
-    
-    E->Proximo = F;
     E->Anterior = D;
-
-    F->Proximo = G;
+    E->Proximo = F;
     F->Anterior = E;
-
-    G->Proximo = H;
+    F->Proximo = G;
     G->Anterior = F;
-
+    G->Proximo = H;
+    H->Anterior = G;
     H->Proximo = NULL;
 
-    Musica * i = criarItem("Velha Infância","Nando Reis", 2002);
-    i->Proximo = D;
-    i->Anterior = NULL;
-    D->Anterior = i;
+    Playlist->Inicio = D;
+    Playlist-> Tamanho = 5;
 
-    Musica * J = criarItem("É","Gonzaguinha",1990);
-    G -> Proximo = J;
-    J -> Anterior = G;
-    J -> Proximo = H;
-    H -> Anterior = J;
+    exibirLista(Playlist);
+
+    return 0;
 }
 
 Item * criarItem(char *  Titulo, char * Autor, int Ano){
@@ -68,8 +76,30 @@ Item * criarItem(char *  Titulo, char * Autor, int Ano){
     return I;
 }
 
-void ExibirLista(Item * I){
-    while ( I != NULL){
-       printf("%d \t %s\t %s \n", I->Ano, I->Titulo, I->Autor );
+Lista * criarLista(){
+    Lista * L = (Lista *) malloc(sizeof(Lista));
+
+    if( L == NULL){
+        printf("ERRO: SEM MEMORIA PARA A LISTA\n");
+        return NULL;
     }
-};
+
+    L->Tamanho = 0;
+    L->Inicio = NULL; //A lista está vazia, empty, sem nada
+
+    return L;
+}
+
+void exibirLista(Lista * L){
+   Item * Atual  = L->Inicio;
+
+    while(Atual != NULL){
+         printf("Titulo: %s\n", Atual->Titulo);
+         printf("Autor: %s\n", Atual->Autor);
+         printf("Ano: %d\n", Atual->Ano);
+         printf("\n");
+         Atual = Atual->Proximo;
+    }
+
+
+}

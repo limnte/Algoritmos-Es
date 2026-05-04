@@ -1,0 +1,10 @@
+Filas são Fifo (First in, First Out)
+
+os itens são sempre inseridos no final de uma fila, em que o primeiro elemento é o primeiro a sair, o item retirado é sempre o item que está há mais tempo na fila.
+
+Filas são usadas: SO's, Redes de computadores, IA's, Simulação de sistemas, comércio eletronico, programação concorrente...etc.
+
+
+-x-
+
+Existem duas formas de se implementar uma fila: usando Arrays(Vetor) ou Ponteiro.

@@ -1,0 +1,15 @@
+digraph Arvore {
+     node [shape=box, style = filled,color=#5553ca, fillcolor=];;
+
+    "009D1DE8" [label="10"];
+    "009D1DE8" -> "009D1E00";
+    "009D1E00" [label="12"];
+    "009D1E00" -> "009D3568";
+    "009D3568" [label="16"];
+    "009D1E00" -> "009D3580";
+    "009D3580" [label="18"];
+    "009D1DE8" -> "009D1E18";
+    "009D1E18" [label="15"];
+    "009D1E18" -> "009D3598";
+    "009D3598" [label="20"];
+}

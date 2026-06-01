@@ -1,68 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct No{
+typedef struct No {
     int Valor;
-    struct No *Esquerda;
-    struct No *Direita;
-}No;
+    struct No * Esquerda;
+    struct No * Direita;
+} No;
 
-typedef struct arvore{
-    No *Raiz;
-    int altura;
-    int grau;
-    int NumeroFolhas;
-    int NumeroNos;
-}arvore;
+No * CriarNo (int Valor);
+No * InserirNo(No * Raiz, int Valor);
 
-No * criarNo(int valor);
+void PosOrdem(No * Raiz);
+
 void GerarGraphviz(No *Raiz, FILE *arquivo);
 
-int main(){
+int main() {
+
     system("cls");
 
-    No *A = criarNo(10);
-    No *B = criarNo(12);
-    No *C = criarNo(15);
-    No *D = criarNo(16);
-    No *E = criarNo(18);
-    No *F = criarNo(20);
+    No * Raiz = CriarNo(50);
 
-    A->Esquerda = B;
-    A->Direita = C;
+    InserirNo(Raiz, 30);
+    InserirNo(Raiz, 70);
+    InserirNo(Raiz, 20);
+    InserirNo(Raiz, 40);
+    InserirNo(Raiz, 60);
+    InserirNo(Raiz, 80);
 
-    B->Esquerda = D;
-    B->Direita = E;
 
-    C->Direita = F;    
-
-    GerarGraphviz(A, NULL);
+    GerarGraphviz(Raiz, NULL);
 
     return 0;
 }
 
-No * criarNo(int Valor){
-    No* n = (No *) malloc(sizeof(No));
+No * CriarNo (int Valor) {
 
-    if(n == NULL){
-        printf("ERRO: Não foi possivel alocar memoria para o No %d", n);
-        exit(1);
+    No * N = (No *) malloc (sizeof(No));
+
+    if (N == NULL) {
+        printf("ERRO: não há memória para armazenar um nó!\n");
+        return NULL;
     }
 
-    n -> Valor = Valor;
-    n -> Esquerda = NULL;
-    n-> Direita = NULL;
+    N->Valor = Valor;
+    N->Esquerda = NULL;
+    N->Direita = NULL;
 
-    return n;
+    return N;
+
 }
+
 
 void GerarGraphviz(No *Raiz, FILE *arquivo) {
 
     int raizInicial = 0;
 
-    if (Raiz == NULL) {
-        return;
-    }
+    if (Raiz == NULL) return;
 
     if (arquivo == NULL) {
 
@@ -76,7 +69,7 @@ void GerarGraphviz(No *Raiz, FILE *arquivo) {
         }
 
         fprintf(arquivo, "digraph Arvore {\n");
-        fprintf(arquivo, "     node [shape=box];;\n\n");
+        fprintf(arquivo, "    node [shape=box];\n\n");
     }
 
     fprintf(arquivo,
@@ -109,5 +102,22 @@ void GerarGraphviz(No *Raiz, FILE *arquivo) {
         fprintf(arquivo, "}\n");
 
         fclose(arquivo);
+    }
+}
+
+No * InserirNo(No * Raiz, int Valor) {
+
+    if (Raiz == NULL) return CriarNo(Valor);
+    if (Valor < Raiz->Valor) Raiz->Esquerda = InserirNo(Raiz->Esquerda, Valor);
+    else Raiz->Direita = InserirNo(Raiz->Direita, Valor);
+    
+    return Raiz;
+
+}
+
+void PosOrdem(No* Raiz){
+    if(Raiz != NULL){
+        PosOrdem(Raiz->Esquerda);
+        PosOrdem(Raiz->Direita);
     }
 }
